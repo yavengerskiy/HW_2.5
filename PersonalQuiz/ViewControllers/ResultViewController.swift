@@ -18,12 +18,12 @@ class ResultViewController: UIViewController {
         super.viewDidLoad()
         navigationItem.hidesBackButton = true
         var animalTypesCounter: [AnimalType : Int] = [:]
-        for answerIdentifier in 1..<answers.count{
+        for answer in answers{
             
-            if let animalTypeCount = animalTypesCounter[answers[answerIdentifier].type] {
-                animalTypesCounter.updateValue(animalTypeCount + 1, forKey: answers[answerIdentifier].type)
+            if let animalTypeCount = animalTypesCounter[answer.type] {
+                animalTypesCounter.updateValue(animalTypeCount + 1, forKey: answer.type)
             } else {
-                animalTypesCounter.updateValue(1, forKey: answers[answerIdentifier].type)
+                animalTypesCounter.updateValue(1, forKey: answer.type)
             }
         }
         
