@@ -9,14 +9,19 @@ import UIKit
 
 class ResultViewController: UIViewController {
     
-    var answers: [Answer]!
-    
     @IBOutlet weak var quizResultTitile: UILabel!
     @IBOutlet weak var quizResultDescription: UILabel!
+    
+    var answers: [Answer]!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.hidesBackButton = true
+    }
+}
+
+extension ResultViewController {
+    private func funalResult() {
         var animalTypesCounter: [AnimalType : Int] = [:]
         for answer in answers{
             
@@ -27,15 +32,14 @@ class ResultViewController: UIViewController {
             }
         }
         
-        guard let animalTypeWithMaxResult = (animalTypesCounter.sorted() { $0.value > $1.value }).first else { return }
+        let animalTypeSorted = animalTypesCounter.sorted() { $0.value > $1.value }
+        guard let animalTypeWithMaxResult = animalTypeSorted.first?.key else { return }
+        showResult(animal: animalTypeWithMaxResult)
         
-        quizResultTitile.text = "\(animalTypeWithMaxResult.key) - \(animalTypeWithMaxResult.key.rawValue)"
-        quizResultDescription.text = animalTypeWithMaxResult.key.definition
     }
     
-    // 1. Передать сюда массив с ответами
-    // 2. Определить наиболее часто встречающийся тип животного
-    // 3. Отобразить результаты в соотвствии с этим животным
-    // 4. Избавиться от кнопки возврата назад на экране результатов
-    
+    private func showResult(animal: AnimalType){
+        quizResultTitile.text = "\(animal) - \(animal.rawValue)"
+        quizResultDescription.text = animal.definition
+    }
 }
